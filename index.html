@@ -462,7 +462,21 @@ document.addEventListener("DOMContentLoaded", () => {
         })
     }
 
+const menuBtn = document.querySelector(".menu");
+const menuLateral = document.getElementById("menuLateral");
 
+menuBtn.addEventListener("click",(e)=>{
+    e.stopPropagation();
+    menuLateral.classList.toggle("ativo");
+});
+
+menuLateral.addEventListener("click",(e)=>{
+    e.stopPropagation();
+});
+
+document.addEventListener("click",()=>{
+    menuLateral.classList.remove("ativo");
+});
 
 
     /* ---------------- ANO AUTOMÁTICO ---------------- */
