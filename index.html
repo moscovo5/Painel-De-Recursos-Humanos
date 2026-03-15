@@ -50,6 +50,38 @@ body {
     width: 100vw;
 
 }
+       .menu-lateral{
+    position: fixed;
+    top:0;
+    left:-260px;
+    width:260px;
+    height:100vh;
+    background:#111;
+    padding-top:80px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    transition:0.3s;
+    z-index:999;
+}
+
+.menu-lateral a{
+    color:#fff;
+    padding:15px 25px;
+    font-family:poppins;
+    display:flex;
+    gap:10px;
+    align-items:center;
+    transition:.2s;
+}
+
+.menu-lateral a:hover{
+    background:#f90;
+}
+
+.menu-lateral.ativo{
+    left:0;
+}
 .conjunto-header{
     display: flex;
     align-items: center;
@@ -347,6 +379,27 @@ align-items: center;
 </head>
 
 <body>
+    <div class="menu-lateral" id="menuLateral">
+
+    <a href="#"><i class="fa-solid fa-home"></i> Dashboard</a>
+
+    <a href="#"><i class="fa-solid fa-user-plus"></i> Recrutamento</a>
+
+    <a href="#"><i class="fa-solid fa-id-badge"></i> Funcionários</a>
+
+    <a href="#"><i class="fa-solid fa-calendar-check"></i> Presenças</a>
+
+    <a href="#"><i class="fa-solid fa-money-bill"></i> Salários</a>
+
+    <a href="#"><i class="fa-solid fa-file"></i> Relatórios</a>
+
+    <a href="#"><i class="fa-solid fa-chart-line"></i> Desempenho</a>
+
+    <a href="#"><i class="fa-solid fa-user-shield"></i> Permissões</a>
+
+    <a href="#"><i class="fa-solid fa-gear"></i> Configurações</a>
+
+</div>
     <div class="header">
         <div class="conjunto-header">
             <a href="#" class="logo">Recursos Humanos</a>
