@@ -1,566 +1,280 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel Recursos Humanos || PG</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <!--******Link Css********-->
-   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Poppins:wght@400;600&family=Roboto:wght@400;500&display=swap');
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Painel Recursos Humanos || PG</title>
 
-:root {
-    --bg1: #f6f5f6;
-    --bg2: #f90;
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Poppins:wght@400;600&family=Roboto:wght@400;500&display=swap');
+
+:root{
+--bg1:#f6f5f6;
+--bg2:#f90;
 }
 
-html {
-    scroll-behavior: smooth;
+body{
+background:var(--bg1);
+margin:0;
+font-family:poppins;
 }
 
-::-webkit-scrollbar {
-    width: 1px;
-    height: 1px;
-    background: transparent;
+/* HEADER */
+
+.header{
+background:var(--bg2);
+display:flex;
+flex-direction:column;
+padding:10px;
+gap:10px;
 }
 
-body {
-    background: var(--bg1);        visibility: hidden;
-        pointer-events: none;
+.conjunto-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
 }
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    outline: none;
-    font-style: normal;
-    text-decoration: none;
+.logo{
+color:#fff;
+font-weight:bold;
+font-size:24px;
 }
 
-.header {
-    background: var(--bg2);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 10px;
-    gap: 15px;
-    justify-content: space-between;
-    width: 100vw;
-
+.menu i{
+color:#fff;
+font-size:1.6em;
+cursor:pointer;
 }
-       .menu-lateral{
-    position: fixed;
-    top:0;
-    left:-260px;
-    width:260px;
-    height:100vh;
-    background:#111;
-    padding-top:80px;
-    display:flex;
-    flex-direction:column;
-    gap:10px;
-    transition:0.3s;
-    z-index:999;
+
+.relogio{
+background:#fff;
+padding:5px 10px;
+border-radius:4px;
+}
+
+/* MENU LATERAL */
+
+.menu-lateral{
+position:fixed;
+top:0;
+left:-260px;
+width:260px;
+height:100vh;
+background:#111;
+display:flex;
+flex-direction:column;
+padding-top:70px;
+transition:.3s;
+z-index:1000;
 }
 
 .menu-lateral a{
-    color:#fff;
-    padding:15px 25px;
-    font-family:poppins;
-    display:flex;
-    gap:10px;
-    align-items:center;
-    transition:.2s;
+color:#fff;
+padding:15px 25px;
+display:flex;
+gap:10px;
+align-items:center;
 }
 
 .menu-lateral a:hover{
-    background:#f90;
+background:var(--bg2);
 }
 
 .menu-lateral.ativo{
-    left:0;
-}
-.conjunto-header{
-    display: flex;
-    align-items: center;
-}
-.conjunto-header .logo {
-    color: #fff;
-    font-weight: bolder;
-    font-size: 26px;
-    letter-spacing: 2px;
-    font-family: "montserrat";
-    pointer-events: none;
+left:0;
 }
 
-.conjunto-header .menu i {
-    color: #fff;
-    cursor: pointer;
-    font-size: 1.6em;
-    padding: 5px 10px;
-    border-radius: 3px;
+/* NAV LINKS */
+
+.links-nav{
+display:flex;
+gap:10px;
+overflow:auto;
 }
 
-.conjunto-header .menu i:hover {
-    border: 2px solid #fff;
-
+.links-nav a{
+background:#eee;
+padding:10px 15px;
+border-radius:5px;
+color:#000;
 }
 
-.conjunto-header .menu i:active {
-    background: #fff;
-    color: var(--bg2);
+.links-nav a:hover{
+background:var(--bg2);
+color:#fff;
 }
 
-.relogio {
-    height: 30px;
-    width: 100px;
-    border-radius: 3px;
-    font-family: "poppins";
-    letter-spacing: 2px;
-    pointer-events: none;
-    background: var(--bg2);
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+/* SEARCH */
+
+.search{
+background:#333;
+width:45px;
+height:45px;
+display:flex;
+align-items:center;
+justify-content:center;
+border-radius:8px;
+position:relative;
+transition:.3s;
 }
 
-.header .conjunto-header {
-    display: flex;
-    width: 300px;
-    width: 100%;
-    padding: 0 10px;
-    justify-content: space-between;
+.search.active{
+width:250px;
 }
 
-.conjud-header {
-    display: flex;
-    position: relative;
-    align-items: center;
-    border-radius: 10px;
-    justify-content: space-between;
-    width: 98vw;
-    background: var(--bg1);
-    justify-content: space-between;
-    display: flex;
-    padding: 10px;
+.search input{
+position:absolute;
+left:0;
+width:calc(100% - 45px);
+height:100%;
+border:none;
+padding-left:10px;
+background:transparent;
+color:#fff;
+display:none;
 }
 
-.search.active .input {
-    display: block;
+.search.active input{
+display:block;
 }
 
-.search.active .close {
-    opacity: 1;
+.search i{
+color:#fff;
+cursor:pointer;
 }
 
-.search {
-    display: flex;
-    position: relative;
-    height: 45px;
-    width: 50px;
-    border-radius: 10px;
-    overflow: hidden;
-    align-items: center;
-    background-color: rgba(77, 74, 74, 0.897);
-    justify-content: center;
+/* MAIN */
+
+main{
+padding:30px;
+min-height:70vh;
 }
 
-.search.active {
-    width: 350px;
+/* FOOTER */
+
+footer{
+background:var(--bg2);
+color:#fff;
+text-align:center;
+padding:15px;
 }
 
-.search input {
-    width: calc(100% - 60px);
-    position: absolute;
-    border: none;
-    left: 0;
-    padding: 0 20px;
-    z-index: -1;
-    height: 100%;
-    background: transparent;
-}
-
-.search input::-webkit-input-placeholder {
-    color: #bbb;
-}
-
-.search i {
-    position: absolute;
-    right: 0px;
-    background: #000;
-    height: 100%;
-    color: #fff;
-    width: 50px;
-    cursor: pointer;
-    display: flex;
-    border-radius: 10px;
-    align-items: center;
-    justify-content: center;
-}
-
-.search i.close {
-    opacity: 0;
-
-}
-
-.links-nav,
-.icons-header {
-    padding: 0 10px;
-    display: flex;
-    gap: 25px;
-
-}
-
-.links-nav a {
-    color: #000;
-    text-transform: capitalize;
-    font-family: poppins;
-    flex: 0 0 auto;
-    padding: 10px 20px;
-    background: #eee;
-    border-radius: 6px;overflow: hidden;
-    font-weight: 550;
-    cursor: pointer;
-    position: relative;
-    z-index: 1;
-    left: 0;
-}
-
-.links-nav a:hover {
-    color: #fff;
-}
-.links-nav a i{
-    display: none;
-}
-.links-nav a::before {
-    position: absolute;
-    top: 0;
-    z-index: -1;
-    content: "";
-    right: 0;
-    transition: .2s;
-    width: 0%;
-    height: 100%;
-    background: var(--bg2);
-}
-
-.links-nav a:hover::before {
-    width: 100%;
-    left: 0;
-}
-
-.links-nav a {
-    display: block;
-    transform: translateX(100px);
-    opacity: 0;
-    animation: slideRight 0.6s ease forwards;
-}
-
-.links-nav a:nth-child(1) {
-    animation-delay: 0.1s;
-}
-
-.links-nav a:nth-child(2) {
-    animation-delay: 0.2s;
-}
-
-.links-nav a:nth-child(3) {
-    animation-delay: 0.3s;
-}
-
-.links-nav a:nth-child(4) {
-    animation-delay: 0.4s;
-}
-
-.links-nav a:nth-child(5) {
-    animation-delay: 0.5s;
-}
-
-@keyframes slideRight {
-    from {
-        transform: translateX(100px);
-        opacity: 0;
-    }
-
-    to {
-        transform: translateX(0);
-        opacity: 1;
-    }
-}
-
-.links-nav {
-    display: flex;
-    gap: 20px;
-    overflow-x: auto;
-    white-space: nowrap;
-    scroll-behavior: smooth;
-}
-
-.links-nav a {
-
-    text-decoration: none;
-}
-
-
-
-.icons-header i:hover {
-    color: var(--bg2);
-    cursor: pointer;
-}
-
-.main-abjunt {
-    height: 75vh;
-}
-
-footer {
-    background: var(--bg2);
-    text-align: center;
-    color: #fff;
-    padding: 20px 0;
-    font-family: "roboto";
-    text-decoration: none;
-    letter-spacing: 2px;
-    font-weight: 550;
-    pointer-events: none;
-}
-
-@media(max-width:884px) {
-    .relogio {
-        display: none;
-    }
-}
-
-@media(max-width:800px) {
-    .links-nav {
-        position: absolute;
-        top: 120%;
-        display: grid;
-        background: var(--bg2);
-        padding: 10px;
-        left: 0;overflow: hidden;
-
-    }
-    .links-nav a{
-align-items: center;
-        display: flex;gap: 10px;font-size: 1em;
-    }
-    .links-nav a i{
-        display: block;
-    }
-    .links-nav a::before{
-        border-radius: 0;
-        background: #000;
-    }.links-nav a:hover{
-        color: var(--bg2);
-    }
-}
-@media(max-width:360px){
-    .header{
-        gap: 5px;
-    }
-.conjunto-header a.logo{
- font-size: 20px;
-}
-.conjunto-header .menu i{
-    color: #fff;
-    font-size: 1.4em;
-}
-}
-@media(min-width:292px){
-    body{
-        visibility: visible;
-        pointer-events: initial;
-    }
-}
-   </style>
+</style>
 </head>
 
 <body>
-    <div class="menu-lateral" id="menuLateral">
 
-    <a href="#"><i class="fa-solid fa-home"></i> Dashboard</a>
+<!-- MENU LATERAL -->
 
-    <a href="#"><i class="fa-solid fa-user-plus"></i> Recrutamento</a>
+<div class="menu-lateral" id="menuLateral">
 
-    <a href="#"><i class="fa-solid fa-id-badge"></i> Funcionários</a>
-
-    <a href="#"><i class="fa-solid fa-calendar-check"></i> Presenças</a>
-
-    <a href="#"><i class="fa-solid fa-money-bill"></i> Salários</a>
-
-    <a href="#"><i class="fa-solid fa-file"></i> Relatórios</a>
-
-    <a href="#"><i class="fa-solid fa-chart-line"></i> Desempenho</a>
-
-    <a href="#"><i class="fa-solid fa-user-shield"></i> Permissões</a>
-
-    <a href="#"><i class="fa-solid fa-gear"></i> Configurações</a>
+<a href="#"><i class="fa-solid fa-home"></i> Dashboard</a>
+<a href="#"><i class="fa-solid fa-user-plus"></i> Recrutamento</a>
+<a href="#"><i class="fa-solid fa-id-badge"></i> Funcionários</a>
+<a href="#"><i class="fa-solid fa-calendar-check"></i> Presenças</a>
+<a href="#"><i class="fa-solid fa-money-bill"></i> Salários</a>
+<a href="#"><i class="fa-solid fa-file"></i> Relatórios</a>
+<a href="#"><i class="fa-solid fa-chart-line"></i> Desempenho</a>
+<a href="#"><i class="fa-solid fa-user-shield"></i> Permissões</a>
+<a href="#"><i class="fa-solid fa-gear"></i> Configurações</a>
 
 </div>
-    <div class="header">
-        <div class="conjunto-header">
-            <a href="#" class="logo">Recursos Humanos</a>
-            <div class="menu"><i>☰</i></div>
-        </div>
-        <div class="conjud-header">
-            <div class="icons-header">
-                <div class="search" id="searchCampo">
-                    <i class="iconSearch fa-solid fa-magnifying-glass"></i>
-                    <i class="close fa-solid fa-xmark"></i>
-                    <input type="text" placeholder="Busca..." class="input">
-                </div>
-            </div>
-            <div class="links-nav">
-                <a href="#"><i><i class="fa-solid fa-home"></i></i> Inicio</a>
-                <a href="#"><i><i class="fa-solid fa-user"></i></i> Usuarios</a>
-                <a href="#"><i><i class="fa-solid fa-user-tie"></i></i> Trabalhadores</a>
-                <a href="#"><i><i class="fa-solid fa-users"></i></i> Contactos</a>
-            </div>
-            <div class="icons-header">
-                <i class="fa-solid fa-phone"></i>
-                <i class="fa-solid fa-user"></i>
-                <i class="fa-solid fa-user-cog"></i>
-                <i class="fa-solid fa-user-lock"></i>
-            </div>
-            <div class="relogio">00:00:00</div>
-        </div>
-    </div>
 
-    <main class="main-abjunt">
+<!-- HEADER -->
 
-    </main>
+<div class="header">
 
-    <footer>&copy; Luanda aos <span id="ano"></span></footer>
+<div class="conjunto-header">
+<div class="logo">Recursos Humanos</div>
+<div class="menu"><i class="fa-solid fa-bars"></i></div>
+</div>
+
+<div class="conjud-header">
+
+<div class="search" id="searchCampo">
+<input type="text" placeholder="Buscar...">
+<i class="fa-solid fa-magnifying-glass"></i>
+</div>
+
+<div class="links-nav">
+<a href="#"><i class="fa-solid fa-home"></i> Inicio</a>
+<a href="#"><i class="fa-solid fa-user"></i> Usuarios</a>
+<a href="#"><i class="fa-solid fa-user-tie"></i> Trabalhadores</a>
+<a href="#"><i class="fa-solid fa-users"></i> Contactos</a>
+</div>
+
+<div class="relogio" id="relogio">00:00:00</div>
+
+</div>
+
+</div>
+
+<main>
+
+<h2>Painel de Recursos Humanos</h2>
+<p>Bem-vindo ao sistema de gestão de funcionários.</p>
+
+</main>
+
+<footer>
+&copy; Luanda <span id="ano"></span>
+</footer>
 
 <script>
-    
-const search = document.getElementById("sh");
-const btnsearch = document.getElementById("btn-search");
-const inputseach = document.querySelector(".inputSeach");
 
-document.addEventListener("DOMContentLoaded", () => {
-    if (btnsearch) {
-        btnsearch.addEventListener("click", () => {
-            search.classList.toggle("barra-Pesquisa");
-            inputseach.classList.toggle("input-pesquisa");
-        });
-
-        search.addEventListener("click", (e) => {
-            e.stopPropagation();
-        });
-
-
-
-
-        document.addEventListener("click", () => {
-            inputseach.classList.toggle("input-pesquisa");
-            search.classList.remove("barra-Pesquisa")
-
-        })
-    }
+/* MENU */
 
 const menuBtn = document.querySelector(".menu");
 const menuLateral = document.getElementById("menuLateral");
 
 menuBtn.addEventListener("click",(e)=>{
-    e.stopPropagation();
-    menuLateral.classList.toggle("ativo");
-});
-
-menuLateral.addEventListener("click",(e)=>{
-    e.stopPropagation();
+e.stopPropagation();
+menuLateral.classList.toggle("ativo");
 });
 
 document.addEventListener("click",()=>{
-    menuLateral.classList.remove("ativo");
+menuLateral.classList.remove("ativo");
 });
 
-
-    /* ---------------- ANO AUTOMÁTICO ---------------- */
-    const anoEl = document.getElementById("ano");
-    if (anoEl) {
-        anoEl.textContent = new Date().getFullYear();
-    }
-    function r() {
-        let relogio = document.querySelector(".relogio");
-        let a = new Date();
-
-        if (relogio) {
-            let h = a.getHours().toString().padStart(2, "0");
-            let m = a.getMinutes().toString().padStart(2, "0");
-            let s = a.getSeconds().toString().padStart(2, "0");
-            relogio.textContent = `${h}:${m}:${s}`
-        }
-
-    }
-    setInterval(r, 1000)
-    r()
+menuLateral.addEventListener("click",(e)=>{
+e.stopPropagation();
 });
 
-document.addEventListener("DOMContentLoaded", () => {
+/* ANO AUTOMATICO */
 
-    const menuActivo = document.querySelector(".menu")
-    const navBar = document.querySelector(".nav-bar");
+document.getElementById("ano").textContent = new Date().getFullYear();
 
-    if (menuActivo) {
-        menuActivo.addEventListener("click", () => {
-            navBar.classList.add("nav-activo");
-        });
+/* RELOGIO */
 
-        navBar.addEventListener("click", (e) => {
-            e.stopPropagation();
-        });
+function atualizarRelogio(){
 
-        document.addEventListener("click", () => {
-            navBar.classList.remove("nav-activo");
+let agora = new Date();
 
-        });
+let h = agora.getHours().toString().padStart(2,"0");
+let m = agora.getMinutes().toString().padStart(2,"0");
+let s = agora.getSeconds().toString().padStart(2,"0");
 
-    }
+document.getElementById("relogio").textContent = `${h}:${m}:${s}`;
 
-})
-
-/**Campo de Pesquisa */
-
-const searchDiv = document.getElementById("searchCampo");
-const input = searchDiv.querySelector(".input");
-const iconSearch = searchDiv.querySelector(".iconSearch");
-const closeBtn = searchDiv.querySelector(".close");
-const mainItems = document.querySelectorAll("main .item");
-
-// Abrir campo de busca ao clicar na lupa
-iconSearch.addEventListener("click", () => {
-    searchDiv.classList.add("active");
-    input.focus();
-});
-
-// Fechar campo de busca
-closeBtn.addEventListener("click", () => {
-    searchDiv.classList.remove("active");
-    input.value = "";
-    filterItems(""); // resetar filtro
-});
-
-// Função de busca em tempo real
-input.addEventListener("input", () => {
-    const query = input.value.toLowerCase();
-    filterItems(query);
-});
-
-function filterItems(query){
-    mainItems.forEach(item => {
-        const text = item.textContent.toLowerCase();
-        if(text.includes(query)){
-            item.style.display = "block";
-        } else {
-            item.style.display = "none";
-        }
-    });
 }
-</script>
-</body>
 
+setInterval(atualizarRelogio,1000);
+atualizarRelogio();
+
+/* SEARCH */
+
+const search = document.getElementById("searchCampo");
+
+search.addEventListener("click",()=>{
+search.classList.toggle("active");
+});
+
+</script>
+
+</body>
 </html>
