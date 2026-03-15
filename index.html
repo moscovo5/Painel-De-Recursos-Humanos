@@ -2,38 +2,55 @@
 <html lang="pt">
 
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Painel Recursos Humanos || PG</title>
+
+<title>Painel Recursos Humanos</title>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
 
+/* ===== FONTES ===== */
+
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Poppins:wght@400;600&family=Roboto:wght@400;500&display=swap');
+
+/* ===== VARIÁVEIS ===== */
 
 :root{
 --bg1:#f6f5f6;
---bg2:#f90;
+--bg2:#ff9900;
+}
+
+/* ===== RESET ===== */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+text-decoration: none;
+font-family:"Poppins",sans-serif;
 }
 
 body{
 background:var(--bg1);
-margin:0;
-font-family:poppins;
 }
 
-/* HEADER */
+/* ===== HEADER ===== */
 
 .header{
 background:var(--bg2);
+padding:10px;
 display:flex;
 flex-direction:column;
-padding:10px;
 gap:10px;
+position:relative;
 }
 
-.conjunto-header{
+/* topo */
+
+.header-top{
 display:flex;
 justify-content:space-between;
 align-items:center;
@@ -41,86 +58,112 @@ align-items:center;
 
 .logo{
 color:#fff;
-font-weight:bold;
 font-size:24px;
+font-weight:bold;
 }
 
-.menu i{
-color:#fff;
-font-size:1.6em;
+.menu{
 cursor:pointer;
+font-size:1.6em;
+color:#fff;
 }
 
-.relogio{
-background:#fff;
-padding:5px 10px;
-border-radius:4px;
-}
+/* ===== MENU DROPDOWN ===== */
 
-/* MENU LATERAL */
-
-.menu-lateral{
-position:fixed;
-top:0;
-left:-260px;
-width:260px;
-height:100vh;
+.menu-dropdown{
+position:absolute;
+left:0;
+top:100%;
+width:100%;
 background:#111;
+
 display:flex;
 flex-direction:column;
-padding-top:70px;
-transition:.3s;
-z-index:1000;
+
+transform:translateY(-20px);
+opacity:0;
+pointer-events:none;
+
+transition:0.35s ease;
 }
 
-.menu-lateral a{
+.menu-dropdown a{
 color:#fff;
-padding:15px 25px;
+padding:15px;
 display:flex;
-gap:10px;
 align-items:center;
+gap:10px;
+border-bottom:1px solid #333;
+transition:0.2s;
 }
 
-.menu-lateral a:hover{
+.menu-dropdown a:hover{
 background:var(--bg2);
 }
 
-.menu-lateral.ativo{
-left:0;
+.menu-dropdown.active{
+transform:translateY(0);
+opacity:1;
+pointer-events:auto;
 }
 
-/* NAV LINKS */
+/* ===== BARRA CONTROLO ===== */
 
-.links-nav{
+.control-bar{
+background:#fff;
+padding:10px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+border-radius:6px;
+}
+
+/* ===== LINKS ===== */
+
+.links{
 display:flex;
 gap:10px;
 overflow:auto;
 }
 
-.links-nav a{
+.links a{
 background:#eee;
-padding:10px 15px;
+padding:8px 15px;
 border-radius:5px;
-color:#000;
+overflow: hidden;
+transition: .4s;
+color:#000;z-index: 1;
+position: relative;
+}
+.links a::before{
+    content: "";
+    position: absolute;
+    top: 0;
+background:var(--bg2);
+width: 0;
+height: 100%;
+transition: .3s;
+left: 0;z-index: -1;
+}.links a:hover::before{
+    width: 100%;
 }
 
-.links-nav a:hover{
-background:var(--bg2);
+.links a:hover{
 color:#fff;
 }
 
-/* SEARCH */
+/* ===== SEARCH ===== */
 
 .search{
 background:#333;
 width:45px;
 height:45px;
+border-radius:8px;
 display:flex;
 align-items:center;
 justify-content:center;
-border-radius:8px;
 position:relative;
-transition:.3s;
+transition:0.3s;
 }
 
 .search.active{
@@ -133,8 +176,8 @@ left:0;
 width:calc(100% - 45px);
 height:100%;
 border:none;
-padding-left:10px;
 background:transparent;
+padding-left:10px;
 color:#fff;
 display:none;
 }
@@ -148,30 +191,52 @@ color:#fff;
 cursor:pointer;
 }
 
-/* MAIN */
+/* ===== RELÓGIO ===== */
+
+.clock{
+background:var(--bg2);
+color:#fff;
+padding:5px 10px;
+border-radius:5px;
+}
+
+/* ===== MAIN ===== */
 
 main{
 padding:30px;
 min-height:70vh;
 }
 
-/* FOOTER */
+/* ===== FOOTER ===== */
 
 footer{
 background:var(--bg2);
 color:#fff;
 text-align:center;
-padding:15px;
+padding:20px;
 }
 
 </style>
+
 </head>
 
 <body>
 
-<!-- MENU LATERAL -->
+<header class="header">
 
-<div class="menu-lateral" id="menuLateral">
+<div class="header-top">
+
+<div class="logo">Recursos Humanos</div>
+
+<div class="menu" id="menuBtn">
+<i class="fa-solid fa-bars"></i>
+</div>
+
+</div>
+
+<!-- MENU -->
+
+<nav class="menu-dropdown" id="menuDropdown">
 
 <a href="#"><i class="fa-solid fa-home"></i> Dashboard</a>
 <a href="#"><i class="fa-solid fa-user-plus"></i> Recrutamento</a>
@@ -183,96 +248,115 @@ padding:15px;
 <a href="#"><i class="fa-solid fa-user-shield"></i> Permissões</a>
 <a href="#"><i class="fa-solid fa-gear"></i> Configurações</a>
 
-</div>
+</nav>
 
-<!-- HEADER -->
+<!-- CONTROL BAR -->
 
-<div class="header">
+<div class="control-bar">
 
-<div class="conjunto-header">
-<div class="logo">Recursos Humanos</div>
-<div class="menu"><i class="fa-solid fa-bars"></i></div>
-</div>
+<div class="search" id="search">
 
-<div class="conjud-header">
-
-<div class="search" id="searchCampo">
 <input type="text" placeholder="Buscar...">
+
 <i class="fa-solid fa-magnifying-glass"></i>
+
 </div>
 
-<div class="links-nav">
+<div class="links">
+
 <a href="#"><i class="fa-solid fa-home"></i> Inicio</a>
 <a href="#"><i class="fa-solid fa-user"></i> Usuarios</a>
 <a href="#"><i class="fa-solid fa-user-tie"></i> Trabalhadores</a>
 <a href="#"><i class="fa-solid fa-users"></i> Contactos</a>
-</div>
-
-<div class="relogio" id="relogio">00:00:00</div>
 
 </div>
 
+<div class="clock" id="clock">
+00:00:00
 </div>
+
+</div>
+
+</header>
 
 <main>
 
-<h2>Painel de Recursos Humanos</h2>
+<h2>Painel Recursos Humanos</h2>
 <p>Bem-vindo ao sistema de gestão de funcionários.</p>
 
 </main>
 
 <footer>
-&copy; Luanda <span id="ano"></span>
+
+© Luanda <span id="year"></span>
+
 </footer>
 
 <script>
 
 /* MENU */
 
-const menuBtn = document.querySelector(".menu");
-const menuLateral = document.getElementById("menuLateral");
+const menuBtn = document.getElementById("menuBtn");
+const menuDropdown = document.getElementById("menuDropdown");
+
+/* abrir / fechar menu */
 
 menuBtn.addEventListener("click",(e)=>{
 e.stopPropagation();
-menuLateral.classList.toggle("ativo");
+menuDropdown.classList.toggle("active");
 });
 
-document.addEventListener("click",()=>{
-menuLateral.classList.remove("ativo");
-});
+/* fechar ao clicar fora */
 
-menuLateral.addEventListener("click",(e)=>{
-e.stopPropagation();
-});
+document.addEventListener("click",(e)=>{
 
-/* ANO AUTOMATICO */
-
-document.getElementById("ano").textContent = new Date().getFullYear();
-
-/* RELOGIO */
-
-function atualizarRelogio(){
-
-let agora = new Date();
-
-let h = agora.getHours().toString().padStart(2,"0");
-let m = agora.getMinutes().toString().padStart(2,"0");
-let s = agora.getSeconds().toString().padStart(2,"0");
-
-document.getElementById("relogio").textContent = `${h}:${m}:${s}`;
-
+if(!menuDropdown.contains(e.target) && !menuBtn.contains(e.target)){
+menuDropdown.classList.remove("active");
 }
 
-setInterval(atualizarRelogio,1000);
-atualizarRelogio();
+});
+
+/* fechar ao clicar nos links */
+
+const linksMenu = menuDropdown.querySelectorAll("a");
+
+linksMenu.forEach(link => {
+
+link.addEventListener("click",()=>{
+menuDropdown.classList.remove("active");
+});
+
+});
 
 /* SEARCH */
 
-const search = document.getElementById("searchCampo");
+const search = document.getElementById("search");
 
 search.addEventListener("click",()=>{
 search.classList.toggle("active");
 });
+
+/* RELÓGIO */
+
+function updateClock(){
+
+let now = new Date();
+
+let h = now.getHours().toString().padStart(2,"0");
+let m = now.getMinutes().toString().padStart(2,"0");
+let s = now.getSeconds().toString().padStart(2,"0");
+
+document.getElementById("clock").textContent = `${h}:${m}:${s}`;
+
+}
+
+setInterval(updateClock,1000);
+updateClock();
+
+/* ANO */
+
+document.getElementById("year").textContent =
+new Date().getFullYear();
 
 </script>
 
