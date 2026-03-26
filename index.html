@@ -2,363 +2,1653 @@
 <html lang="pt">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PG || Painel Financeiro</title>
+    <!--Font Gogle-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <!--Font Gogle-->
+    <!--Font Wesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    <!--Font Wesome -->
+    <style>
+        :root {
+            --bg1: #f6f5f6;
+            --rgba: rgba(255, 255, 255, .5);
+            --bg2: #f90;
+            --fontP: "poppins";
+            --fontM: "montserrat";
+            --fontR: "roboto";
+        }
 
-<title>Painel Recursos Humanos</title>
+        html {
+            scroll-behavior: smooth;
+        }
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+        ::-webkit-scrollbar {
+            width: 1px;
+            height: 1px;
+            background: transparent;
+        }
 
-<style>
+        body {
+            background: var(--bg1);
+            visibility: hidden;
+            cursor: initial;
+            pointer-events: none;
+            overflow-y: scroll;
+            overflow-x: hidden;
+        }
 
-/* ===== FONTES ===== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            cursor: none;
+            outline: none;
+            font-style: normal;
+            text-decoration: none;
+        }
 
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Poppins:wght@400;600&family=Roboto:wght@400;500&display=swap');
+        .header {
+            z-index: 300;
+            top: 0;
+            position: sticky;
+            transition: .3s ease;
+            background: transparent;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px;
+            gap: 15px;
+            justify-content: space-between;
+            width: 100vw;
+        }
 
-/* ===== VARIÁVEIS ===== */
+        .header.baixou-h {
+            background: var(--bg2);
+        }
 
-:root{
---bg1:#f6f5f6;
---bg2:#ff9900;
-}
+        .conjunto-header .logo {
+            color: #fff;
+            font-weight: bolder;
+            font-size: 26px;
+            letter-spacing: 2px;
+            font-family: var(--fontM);
+            pointer-events: none;
+        }
 
-/* ===== RESET ===== */
+        .conjunto-header .menu i {
+            color: #fff;
+            cursor: pointer;
+            font-size: 1.6em;
+            padding: 5px 10px;
+            border-radius: 3px;
+        }
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-text-decoration: none;
-font-family:"Poppins",sans-serif;
-}
+        .conjunto-header .menu i:hover {
+            border: 2px solid #fff;
+        }
 
-body{
-background:var(--bg1);
-}
+        .conjunto-header .menu i:active {
+            background: #fff;
+            color: var(--bg2);
+        }
 
-/* ===== HEADER ===== */
+        .conjunto-relogio {
+            display: grid;
+            place-items: center;
+            width: 100px;
+            position: relative;
+            height: 30px;
+            margin-inline-end: 10px;
+        }
 
-.header{
-background:var(--bg2);
-padding:10px;
-display:flex;
-flex-direction:column;
-gap:10px;
-position:relative;
-}
+        .conjunto-relogio.relogio-Activo i {
+            opacity: 0;
+        }
 
-/* topo */
+        .conjunto-relogio.relogio-Activo .relogio {
+            opacity: 1;
+        }
 
-.header-top{
-display:flex;
-justify-content:space-between;
-align-items:center;
-}
+        .conjunto-relogio i {
+            opacity: 1;
+            display: grid;
+            place-items: center;
+            color: var(--bg2);
+            height: 100%;
+            width: 100%;
+            border: 2px solid #f98d00;
+            border-radius: 10px;
+            position: absolute;
+            margin: auto auto;
+        }
 
-.logo{
-color:#fff;
-font-size:24px;
-font-weight:bold;
-}
+        .conjunto-relogio .relogio {}
 
-.menu{
-cursor:pointer;
-font-size:1.6em;
-color:#fff;
-}
+        .relogio {
+            opacity: 0;
+            height: 30px;
+            width: 100px;
+            border-radius: 3px;
+            font-family: var(--fontP);
+            letter-spacing: 2px;
+            pointer-events: none;
+            background: var(--bg2);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-/* ===== MENU DROPDOWN ===== */
+        .header .conjunto-header {
+            display: flex;
+            width: 300px;
+            width: 100%;
+            padding: 0 10px;
+            justify-content: space-between;
+        }
 
-.menu-dropdown{
-position:absolute;
-left:0;
-top:100%;
-width:100%;
-background:#111;
+        .conjud-header {
+            display: flex;
+            position: relative;
+            align-items: center;
+            border-radius: 10px;
+            justify-content: space-between;
+            width: 98vw;
+            background: var(--bg1);
+            display: flex;
+            padding: 10px;
+        }
 
-display:flex;
-flex-direction:column;
+        .search.active .input {
+            display: block;
+        }
 
-transform:translateY(-20px);
-opacity:0;
-pointer-events:none;
+        .search.active .close {
+            opacity: 1;
+        }
 
-transition:0.35s ease;
-}
+        .search {
+            display: flex;
+            position: relative;
+            height: 35px;
+            width: 350px;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 2px solid var(--rgba);
+            align-items: center;
+            background-color: rgba(255, 255, 255, .5);
+            justify-content: center;
+        }
 
-.menu-dropdown a{
-color:#fff;
-padding:15px;
-display:flex;
-align-items:center;
-gap:10px;
-border-bottom:1px solid #333;
-transition:0.2s;
-}
+        .search.active {
+            width: 350px;
+        }
 
-.menu-dropdown a:hover{
-background:var(--bg2);
-}
+        .search input {
+            width: calc(100% - 60px);
+            position: absolute;
+            border: none;
+            left: 0;
+            color: #fff;
+            font-family: var(--fontP);
+            padding: 0 20px;
+            z-index: 1;
+            height: 100%;
+            background: transparent;
+        }
 
-.menu-dropdown.active{
-transform:translateY(0);
-opacity:1;
-pointer-events:auto;
-}
+        .search input::-webkit-input-placeholder {
+            color: #777;
+        }
 
-/* ===== BARRA CONTROLO ===== */
+        .search i {
+            position: absolute;
+            right: 0px;
+            padding: 0 10px;
+            background: var(--rgba);
+            height: 100%;
+            color: var(--bg2);
+            width: 50px;
+            cursor: pointer;
+            display: flex;
+            border-radius: 10px;
+            align-items: center;
+            justify-content: center;
+        }
 
-.control-bar{
-background:#fff;
-padding:10px;
-display:flex;
-align-items:center;
-justify-content:space-between;
-border-radius:6px;
-}
+        .search i.close {
+            opacity: 0;
+        }
 
-/* ===== LINKS ===== */
+        .links-nav,
+        .icons-header {
+            padding: 0 10px;
+            display: flex;
+            gap: 25px;
+        }
 
-.links{
-display:flex;
-gap:10px;
-overflow:auto;
-}
+        .links-nav a,
+        .link-nav a {
+            color: #000;
+            text-transform: capitalize;
+            font-family: var(--fontP);
+            flex: 0 0 auto;
+            padding: 10px 20px;
+            background: #eee;
+            border-radius: 6px;
+            overflow: hidden;
+            font-weight: 400;
+            cursor: pointer;
+            position: relative;
+            z-index: 1;
+            left: 0;
+        }
 
-.links a{
-background:#eee;
-padding:8px 15px;
-border-radius:5px;
-overflow: hidden;
-transition: .4s;
-color:#000;z-index: 1;
-position: relative;
-}
-.links a::before{
-    content: "";
-    position: absolute;
-    top: 0;
-background:var(--bg2);
-width: 0;
-height: 100%;
-transition: .3s;
-left: 0;z-index: -1;
-}.links a:hover::before{
-    width: 100%;
-}
+        .links-nav a:hover,
+        .link-nav a:hover {
+            color: #fff;
+        }
 
-.links a:hover{
-color:#fff;
-}
+        .links-nav a i,
+        .link-nav a i {
+            display: none;
+        }
 
-/* ===== SEARCH ===== */
+        .links-nav a::before,
+        .link-nav a::before {
+            position: absolute;
+            top: 0;
+            z-index: -1;
+            content: "";
+            right: 0;
+            transition: .2s;
+            width: 0%;
+            height: 100%;
+            background: var(--bg2);
+        }
 
-.search{
-background:#333;
-width:45px;
-height:45px;
-border-radius:8px;
-display:flex;
-align-items:center;
-justify-content:center;
-position:relative;
-transition:0.3s;
-}
+        .links-nav a:hover::before,
+        .link-nav a:hover::before {
+            width: 100%;
+            left: 0;
+        }
 
-.search.active{
-width:250px;
-}
+        .links-nav a,
+        .link-nav a {
+            display: block;
+            transform: translateX(100px);
+            opacity: 0;
+            animation: slideRight 0.6s ease forwards;
+        }
 
-.search input{
-position:absolute;
-left:0;
-width:calc(100% - 45px);
-height:100%;
-border:none;
-background:transparent;
-padding-left:10px;
-color:#fff;
-display:none;
-}
+        .links-nav a:nth-child(1),
+        .link-nav a:nth-child(1) {
+            animation-delay: 0.1s;
+        }
 
-.search.active input{
-display:block;
-}
+        .links-nav a:nth-child(2),
+        .link-nav a:nth-child(2) {
+            animation-delay: 0.2s;
+        }
 
-.search i{
-color:#fff;
-cursor:pointer;
-}
+        .links-nav a:nth-child(3),
+        .link-nav a:nth-child(3) {
+            animation-delay: 0.3s;
+        }
 
-/* ===== RELÓGIO ===== */
+        .links-nav a:nth-child(4),
+        .link-nav a:nth-child(4) {
+            animation-delay: 0.4s;
+        }
 
-.clock{
-background:var(--bg2);
-color:#fff;
-padding:5px 10px;
-border-radius:5px;
-}
+        .links-nav a:nth-child(5) {
+            animation-delay: 0.5s;
+        }
 
-/* ===== MAIN ===== */
+        @keyframes slideRight {
+            from {
+                transform: translateX(100px);
+                opacity: 0;
+            }
 
-main{
-padding:30px;
-min-height:70vh;
-}
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
 
-/* ===== FOOTER ===== */
+        .links-nav {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            white-space: nowrap;
+            scroll-behavior: smooth;
+        }
 
-footer{
-background:var(--bg2);
-color:#fff;
-text-align:center;
-padding:20px;
-}
+        .link-nav.nav-activo {
+            right: 0;
+        }
 
-</style>
+        .links-nav a {
+            text-decoration: none;
+        }
 
+        .icons-header i:hover {
+            color: var(--bg2);
+            cursor: pointer;
+        }
+
+        .anuncio-grafico {
+            display: none;
+        }
+
+        .anuncio-grafico p {
+            color: #fff;
+            font-family: var(--fontP);
+            text-align: justify;
+            line-height: 1.3;
+            font-weight: 550;
+            margin-bottom: 10px;
+        }
+
+        .anuncio-grafico button {
+            background: var(--bg2);
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            width: 130px;
+            height: 30px;
+            transition: .3s;
+
+        }
+
+        .anuncio-grafico button:hover {
+            transform: scale(.9);
+        }
+
+        .downloads-p {
+            background: linear-gradient(135deg, #f00, transparent 5%, #ff2272, #00f);
+            padding-inline: 3px;
+            background-position: center;
+            background-clip: text;
+            background-size: 300%;
+            -webkit-text-fill-color: transparent;
+            animation: 8s infinite alternate cor;
+        }
+
+        @keyframes cor {
+            to {
+                background-position: 300%;
+            }
+        }
+
+        /*container-conteudo_Principal*/
+        .container-conteudo_Principal {
+            padding: 20px 40px;
+        }
+
+        /* ===== SECÇÃO DAS TABELAS ===== */
+        .secao-tabelas {
+            padding: 40px 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 50px;
+            width: 100%;
+        }
+
+        .tabela-titulo {
+            font-family: var(--fontM);
+            font-size: 1.2em;
+            font-weight: 700;
+            color: #fff;
+            background: var(--bg2);
+            padding: 10px 20px;
+            border-radius: 8px 8px 0 0;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .tabela-subtitulo {
+            font-family: var(--fontR);
+            font-size: 0.85em;
+            font-weight: 300;
+            color: var(--bg2);
+            background: #fff3d6;
+            padding: 6px 16px;
+            border-left: 4px solid var(--bg2);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .tabela-wrapper {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            overflow-x: auto;
+        }
+
+        table.fin-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: var(--fontP), sans-serif;
+            font-size: 0.88em;
+        }
+
+        table.fin-table th {
+            background: var(--bg2);
+            color: #fff;
+            padding: 10px 14px;
+            text-align: center;
+            font-weight: 350;
+            letter-spacing: 0.5px;
+        }
+
+        table.fin-table th.left {
+            text-align: left;
+        }
+
+        table.fin-table td {
+            padding: 9px 14px;
+            border-bottom: 1px solid #f0ede8;
+            color: #333;
+        }
+
+        table.fin-table td.num {
+            text-align: right;
+            font-variant-numeric: tabular-nums;
+        }
+
+        table.fin-table td.center {
+            text-align: center;
+        }
+
+        table.fin-table tr:nth-child(even) {
+            background: #fafaf8;
+        }
+
+        table.fin-table tr:hover {
+            background: #fff6e0;
+            transition: background 0.15s;
+        }
+
+        tr.subtitulo-row td {
+            background: #fff3d6;
+            color: var(--bg2);
+            font-weight: 700;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 7px 14px;
+            border-bottom: none;
+        }
+
+        tr.total-row td {
+            background: #fff;
+            font-weight: 700;
+            color: #222;
+            border-top: 2px solid var(--bg2);
+            border-bottom: 2px solid var(--bg2);
+        }
+
+        tr.total-geral-row td {
+            background: var(--bg2);
+            color: #fff;
+            font-weight: 700;
+            font-size: 1em;
+        }
+
+        /* TABELA FIFO — colunas agrupadas */
+        table.fifo-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: var(--fontP), sans-serif;
+            font-size: 0.82em;
+        }
+
+        table.fifo-table th {
+            background: var(--bg2);
+            color: #fff;
+            padding: 8px 10px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        table.fifo-table th.grupo {
+            background: #e68a00;
+            font-size: 0.95em;
+            letter-spacing: 1px;
+        }
+
+        table.fifo-table td {
+            padding: 7px 10px;
+            border-bottom: 1px solid #f0ede8;
+            border-right: 1px solid #f0ede8;
+            text-align: center;
+            color: #333;
+        }
+
+        table.fifo-table td.left {
+            text-align: left;
+        }
+
+        table.fifo-table tr:nth-child(even) {
+            background: #fafaf8;
+        }
+
+        table.fifo-table tr:hover {
+            background: #fff6e0;
+        }
+
+        table.fifo-table td.sep {
+            border-right: 2px solid var(--bg2);
+        }
+
+        table.fifo-table th.sep {
+            border-right: 2px solid #fff;
+        }
+
+        .menu-lateral {
+            position: fixed;
+            top: 0;
+            left: -260px;
+            width: 260px;
+            height: 100vh;
+
+            background: var(--bg2);
+            padding: 20px 15px;
+
+            display: flex;
+            flex-direction: column;
+
+            transition: 0.3s ease;
+            z-index: 999;
+
+            overflow-y: auto;
+            /* 🔥 ISSO resolve o scroll */
+        }
+
+        .menu-lateral.lateralMenu {
+            opacity: 1;
+            left: -1%;
+        }
+
+        .icons-heard-fa {
+            display: grid;
+            gap: 10px;
+            height: 100%;
+            overflow-y: auto;
+
+            width: 100%;
+        }
+
+        .icons-heard-fa span {
+            color: #eee;
+            font-family: var(--fontP);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            cursor: pointer;
+            padding: 10px;
+
+            transition: .3s ease;
+        }
+
+        .icons-heard-fa span:hover {
+            background: #000;
+            color: var(--bg2);
+        }
+
+        .bolinhas {
+            position: absolute;
+            right: 10%;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 5px 6px;
+            border-radius: 50px;
+            background: #333;
+        }
+
+        .blinhas {
+            border-radius: 50%;
+            height: 15px;
+            position: none;
+            transition: .3s;
+            width: 15px;
+            position: relative;
+            animation: scalas 4s infinite linear;
+        }
+
+        @keyframes scalas {
+
+            0%,
+            50% {
+                transform: scale(.9);
+            }
+
+            51%,
+            80% {
+                transform: scale(1);
+            }
+
+            81%,
+            100% {
+                transform: scale(1.1);
+            }
+        }
+
+        .b1 {
+            background: #f09;
+            animation-delay: .2s;
+        }
+
+        .b2 {
+            animation-delay: .4s;
+            background: #f98d00;
+        }
+
+        .b3 {
+            animation-delay: .6s;
+            background: #ff0;
+        }
+
+        #cursor,
+        #cur {
+            opacity: 1;
+            mix-blend-mode: difference;
+            z-index: 9999;
+            pointer-events: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+
+        #cur {
+            width: 25px;
+            height: 25px;
+            border: 2px dashed var(--bg2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        #cursor {
+            width: 10px;
+            height: 10px;
+            background: var(--bg2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        #cursor {
+            width: 10px;
+            height: 10px;
+            background: var(--bg2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .grafico {
+            border: 1px solid var(--rgba);
+            padding: 5px 10px;
+            background: var(--bg2);
+            z-index: 1;
+            border-radius: 10px;
+            height: 100vh;
+            display: inline;
+        }
+
+        .grafico canvas {
+            z-index: 1;
+            border-radius: 10px;
+            border: 1px solid var(--rgba)
+        }
+
+        #particles {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            background: linear-gradient(135deg, #0f172a, #0b1220);
+        }
+
+        footer {
+            background: var(--bg2);
+            text-align: center;
+            color: #fff;
+            padding: 20px 0;
+            font-family: var(--fontR);
+            text-decoration: none;
+            letter-spacing: 2px;
+            font-weight: 550;
+            pointer-events: none;
+        }
+
+        @media(max-width:554px) {
+            .grafico {
+                display: none;
+            }
+
+            .anuncio-grafico {
+                display: flex;
+            }
+
+        }
+
+        @media(max-width:884px) {
+            .links-nav {
+                display: none;
+            }
+
+            .bolinhas {
+                border: 2px solid #f00;
+            }
+        }
+
+        @media(max-width:809px) {
+            .grafico canva {
+                border: 2px solid #f00;
+            }
+
+            .relogio {
+                display: flex;
+            }
+
+            .links-nav a {
+                align-items: center;
+                display: flex;
+                gap: 10px;
+                font-size: 1em;
+            }
+
+            .links-nav a i {
+                display: block;
+            }
+
+            .links-nav a::before {
+                border-radius: 0;
+                background: #000;
+            }
+
+            .links-nav a:hover {
+                color: var(--bg2);
+            }
+
+            .bolinhas {
+                display: none;
+            }
+        }
+
+        @media(max-width:430px) {
+            .relogio {
+                display: none;
+            }
+
+            .sub {
+                margin: auto auto;
+                left: 15px;
+                border-radius: 10px;
+                padding: 10px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .search {
+                display: none;
+            }
+        }
+
+        @media(max-width:360px) {
+            html {
+                font-size: 50%;
+            }
+
+            .header {
+                gap: 10px;
+                padding: 5px;
+            }
+
+            .conjunto-header a.logo {
+                font-size: 20px;
+            }
+
+            .conjunto-header .menu i {
+                color: #fff;
+                font-size: 20px;
+            }
+
+            .icons-header i {
+                font-size: 16px;
+            }
+
+            .search i {
+                height: 30px;
+                color: #fff;
+                background: #000;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 40px;
+            }
+
+            .search {
+                width: 250px;
+                height: 30px;
+                display: flex;
+                align-items: center;
+                display: none;
+                justify-content: center;
+            }
+        }
+
+        @media(max-width:280px) {
+            .header {
+                padding: 4px;
+            }
+
+            .header a.logo {
+                color: #f00;
+            }
+        }
+
+        @media(min-width:102px) {
+            body {
+                visibility: visible;
+                pointer-events: initial;
+            }
+        }
+    </style>
 </head>
 
 <body>
+    <canvas id="particles"></canvas>
+    <div id="cursor"></div>
+    <div id="cur"></div>
+    <div class="header">
+        <div class="conjunto-header">
+            <a href="#" class="logo">Finanças</a>
 
-<header class="header">
+            <div class="search searchable" id="searchCampo">
+                <i class="iconSearch fa-solid fa-magnifying-glass"></i>
+                <i class="close fa-solid fa-xmark"></i>
+                <input type="text" placeholder="Busca..." class="input" id="searchInput">
+            </div>
+            <div class="menu"><i>☰</i></div>
+            <div class="bolinhas cores">
+                <div class="blinhas b1"></div>
+                <div class="blinhas b2"></div>
+                <div class="blinhas b3"></div>
+            </div>
+        </div>
+        <div class="conjud-header">
 
-<div class="header-top">
+            <div class="icons-header sub">
+                <i class="fa-solid fa-user-lock"></i>
+                <i class="fa-solid fa-user" style="color:#1E90FF;"></i>
+                <i class="fa-solid fa-user-cog" style="color:#FFA500;"></i>
+                <i class="fa-solid fa-user-lock" style="color:#DC143C;"></i>
+                <i class="fa-solid fa-phone" style="color:#1E90FF;"></i>
+                <i class="fas fa-lock" style="color:#888;"></i>
+                <i class="fas fa-exclamation-triangle" style="color:#FF4500;"></i>
+            </div>
 
-<div class="logo">Recursos Humanos</div>
+            <div class="conjunto-relogio">
+                <div class="relogio">00:00:00</div>
+                <i class="fa-solid fa-clock relogio-btn"></i>
+            </div>
 
-<div class="menu" id="menuBtn">
-<i class="fa-solid fa-bars"></i>
-</div>
+            <div class="menu-lateral">
+                <div class="icons-heard-fa">
+                    <span><i class="fa-solid fa-house"></i><label for="#">Home</label></span>
+                    <span><i class="fas fa-exclamation-triangle"></i><label for="#">Alertas</label></span>
+                    <span><i class="fas fa-chart-line"></i><label for="#">Perdas</label></span>
+                    <span><i class="fas fa-tasks"></i><label for="#">Planejamento</label></span>
+                    <span><i class="fas fa-bullseye"></i><label for="#">Metas</label></span>
+                    <span><i class="fa-solid fa-circle-info"></i><label for="#">Informações</label> </span>
+                    <span><i class="fa-brands fa-cash-app"></i></span>
+                    <span><i class="fa-solid fa-cart-shopping"></i><label for="#">Lucros</label></span>
+                    <span><i class="fa-solid fa-calendar"></i><label for="#">Calendario</label></span>
+                    <span><i class="fa-solid fa-briefcase"></i><label for="#">Agenda</label></span>
 
-</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-conteudo_Principal">
+        <div class="grafico">
+            <canvas id="particleCanvas" style="position:absolute; top:0; left:0; width:100%; height:300px; z-index:0;"></canvas>
 
-<!-- MENU -->
+            <canvas id="myChart" height="120"></canvas>
+        </div>
+        <div class="anuncio-grafico" style="flex-direction: column;align-items: baseline;background: linear-gradient(135deg,#00f,#0ff); padding: 30px 30px;
+        box-shadow: 0 0 30px #00f;border-radius: 10px;
 
-<nav class="menu-dropdown" id="menuDropdown">
+        ">
+            <h2 style="font-family: var(--fontR);color: #fff;font-size: 36px;font-style: italic;
+            font-weight: 550;
+            margin-bottom: .5em;
+            ">Faca o <span class="downloads-p">Download</span> do grafico</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum, iure id. Eum culpa suscipit porro! Eos
+                dignissimos libero qui eius.</p>
+            <button class="Baixar_file">Baixar</button>
+        </div>
+        <!-- ============================================================ -->
+        <!-- SECÇÃO DE TABELAS FINANCEIRAS                                 -->
+        <!-- ============================================================ -->
+        <section class="secao-tabelas">
 
-<a href="#"><i class="fa-solid fa-home"></i> Dashboard</a>
-<a href="#"><i class="fa-solid fa-user-plus"></i> Recrutamento</a>
-<a href="#"><i class="fa-solid fa-id-badge"></i> Funcionários</a>
-<a href="#"><i class="fa-solid fa-calendar-check"></i> Presenças</a>
-<a href="#"><i class="fa-solid fa-money-bill"></i> Salários</a>
-<a href="#"><i class="fa-solid fa-file"></i> Relatórios</a>
-<a href="#"><i class="fa-solid fa-chart-line"></i> Desempenho</a>
-<a href="#"><i class="fa-solid fa-user-shield"></i> Permissões</a>
-<a href="#"><i class="fa-solid fa-gear"></i> Configurações</a>
+            <!-- ====== TABELA 1 — BALANÇO DA EMPRESA (ACTIVO) ====== -->
+            <div>
+                <div class="tabela-titulo">Gerenciamento dos Trabalhadores</div>
+                <div class="tabela-wrapper">
+                    <table class="fin-table">
+                        <thead>
+                            <tr>
+                                <th class="left">Nomes</th>
+                                <th class="left">Função</th>
+                                <th>Salário Base (Kz)</th>
+                                <th>Faltas</th>
+                                <th>Salário Líquido (Kz)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>António Costa</td>
+                                <td>Administrador</td>
+                                <td class="num">200.000</td>
+                                <td class="center">2</td>
+                                <td class="num">181.820</td>
+                            </tr>
+                            <tr>
+                                <td>Paulo Fagoso</td>
+                                <td>Gerente de RH</td>
+                                <td class="num">180.000</td>
+                                <td class="center">4</td>
+                                <td class="num">147.276</td>
+                            </tr>
+                            <tr>
+                                <td>Teresa José</td>
+                                <td>Secretária</td>
+                                <td class="num">140.000</td>
+                                <td class="center">3</td>
+                                <td class="num">120.911</td>
+                            </tr>
+                            <tr>
+                                <td>Isabel Muhanga</td>
+                                <td>Auxiliar</td>
+                                <td class="num">120.000</td>
+                                <td class="center">2</td>
+                                <td class="num">109.092</td>
+                            </tr>
+                            <tr>
+                                <td>Jacó Baptista</td>
+                                <td>Contabilista</td>
+                                <td class="num">160.000</td>
+                                <td class="center">1</td>
+                                <td class="num">152.728</td>
+                            </tr>
+                            <tr>
+                                <td>Laurina Munguenga</td>
+                                <td>Secretária</td>
+                                <td class="num">140.000</td>
+                                <td class="center">3</td>
+                                <td class="num">120.911</td>
+                            </tr>
+                            <tr>
+                                <td>Marcelina Michinge</td>
+                                <td>Gerente de RH</td>
+                                <td class="num">180.000</td>
+                                <td class="center">4</td>
+                                <td class="num">147.276</td>
+                            </tr>
+                            <tr>
+                                <td>Rafael da Costa</td>
+                                <td>Contabilista</td>
+                                <td class="num">160.000</td>
+                                <td class="center">2</td>
+                                <td class="num">145.456</td>
+                            </tr>
+                            <tr>
+                                <td>Sandra de Carvalho</td>
+                                <td>Comunicação Interna</td>
+                                <td class="num">150.000</td>
+                                <td class="center">3</td>
+                                <td class="num">129.560</td>
+                            </tr>
+                            <tr>
+                                <td>Thomas Ndoge</td>
+                                <td>Auxiliar</td>
+                                <td class="num">120.000</td>
+                                <td class="center">6</td>
+                                <td class="num">87.276</td>
+                            </tr>
+                            <tr>
+                                <td>Tiago Braz</td>
+                                <td>Comunicação Interna</td>
+                                <td class="num">150.000</td>
+                                <td class="center">7</td>
+                                <td class="num">102.274</td>
+                            </tr>
+                            <tr>
+                                <td>Victor António</td>
+                                <td>Administrador</td>
+                                <td class="num">200.000</td>
+                                <td class="center">2</td>
+                                <td class="num">181.820</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
-</nav>
+            <!-- ====== TABELA 3 — MAPA DE CUSTEIO FIFO ====== -->
+            <div>
+                <div class="tabela-titulo">Mapa de Custeio — First In, First Out (FIFO)</div>
+                <div class="tabela-wrapper">
+                    <table class="fifo-table">
+                        <thead>
+                            <tr>
+                                <th rowspan="2" style="width:7%">Dia</th>
+                                <th rowspan="2" class="left sep" style="width:10%">Designação</th>
+                                <th colspan="3" class="grupo sep">Entradas (Compras)</th>
+                                <th colspan="3" class="grupo sep">Saídas (Vendas)</th>
+                                <th colspan="3" class="grupo">Existências</th>
+                            </tr>
+                            <tr>
+                                <th>Qt</th>
+                                <th>PU</th>
+                                <th class="sep">Valor</th>
+                                <th>Qt</th>
+                                <th>PU</th>
+                                <th class="sep">Valor</th>
+                                <th>Qt</th>
+                                <th>PU</th>
+                                <th>Valor</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Mês 01 — Existência inicial -->
+                            <tr class="subtitulo-row">
+                                <td>Mês 01</td>
+                                <td class="left" colspan="9">Existência Inicial</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td class="left">—</td>
+                                <td>—</td>
+                                <td>—</td>
+                                <td class="sep">—</td>
+                                <td>—</td>
+                                <td>—</td>
+                                <td class="sep">—</td>
+                                <td>9.000</td>
+                                <td>500,00</td>
+                                <td>4.500.000</td>
+                            </tr>
 
-<!-- CONTROL BAR -->
+                            <!-- 01/05 Venda -->
+                            <tr>
+                                <td>01/05</td>
+                                <td class="left">Venda</td>
+                                <td>—</td>
+                                <td>—</td>
+                                <td class="sep">—</td>
+                                <td>4.000</td>
+                                <td>500,00 / 400,00</td>
+                                <td class="sep">1.600.000</td>
+                                <td>5.000</td>
+                                <td>500,00</td>
+                                <td>2.500.000</td>
+                            </tr>
 
-<div class="control-bar">
+                            <!-- 01/07 Compra -->
+                            <tr>
+                                <td>01/07</td>
+                                <td class="left">Compra</td>
+                                <td>7.000</td>
+                                <td>862,86</td>
+                                <td class="sep">6.040.020</td>
+                                <td>—</td>
+                                <td>—</td>
+                                <td class="sep">—</td>
+                                <td>5.000</td>
+                                <td>500,00</td>
+                                <td>2.500.000</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td class="left"></td>
+                                <td></td>
+                                <td></td>
+                                <td class="sep"></td>
+                                <td></td>
+                                <td></td>
+                                <td class="sep"></td>
+                                <td>7.000</td>
+                                <td>862,86</td>
+                                <td>6.040.020</td>
+                            </tr>
 
-<div class="search" id="search">
+                            <!-- 01/12 Venda -->
+                            <tr>
+                                <td>01/12</td>
+                                <td class="left">Venda</td>
+                                <td>—</td>
+                                <td>—</td>
+                                <td class="sep">—</td>
+                                <td>2.500</td>
+                                <td>350,00</td>
+                                <td class="sep">1.345.000</td>
+                                <td>2.500</td>
+                                <td>500,00</td>
+                                <td>1.250.000</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td class="left"></td>
+                                <td></td>
+                                <td></td>
+                                <td class="sep"></td>
+                                <td></td>
+                                <td></td>
+                                <td class="sep"></td>
+                                <td>7.000</td>
+                                <td>862,86</td>
+                                <td>6.040.020</td>
+                            </tr>
 
-<input type="text" placeholder="Buscar...">
+                            <!-- 01/19 Venda -->
+                            <tr>
+                                <td>01/19</td>
+                                <td class="left">Venda</td>
+                                <td>—</td>
+                                <td>—</td>
+                                <td class="sep">—</td>
+                                <td>500</td>
+                                <td>500,00</td>
+                                <td class="sep">2.300.000</td>
+                                <td>2.000</td>
+                                <td>500,00</td>
+                                <td>1.000.000</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td class="left"></td>
+                                <td></td>
+                                <td></td>
+                                <td class="sep"></td>
+                                <td></td>
+                                <td></td>
+                                <td class="sep"></td>
+                                <td>7.000</td>
+                                <td>862,86</td>
+                                <td>6.040.020</td>
+                            </tr>
 
-<i class="fa-solid fa-magnifying-glass"></i>
+                            <!-- 01/25 Compra -->
+                            <tr>
+                                <td>01/25</td>
+                                <td class="left">Compra</td>
+                                <td>10.000</td>
+                                <td>404,00</td>
+                                <td class="sep">4.040.000</td>
+                                <td>—</td>
+                                <td>—</td>
+                                <td class="sep">—</td>
+                                <td>2.000</td>
+                                <td>500,00</td>
+                                <td>1.000.000</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td class="left"></td>
+                                <td></td>
+                                <td></td>
+                                <td class="sep"></td>
+                                <td></td>
+                                <td></td>
+                                <td class="sep"></td>
+                                <td>7.000</td>
+                                <td>862,86</td>
+                                <td>6.040.020</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td class="left"></td>
+                                <td></td>
+                                <td></td>
+                                <td class="sep"></td>
+                                <td></td>
+                                <td></td>
+                                <td class="sep"></td>
+                                <td>10.000</td>
+                                <td>404,00</td>
+                                <td>4.040.000</td>
+                            </tr>
 
-</div>
+                            <!-- 01/28 Venda -->
+                            <tr>
+                                <td>01/28</td>
+                                <td class="left">Venda</td>
+                                <td>—</td>
+                                <td>—</td>
+                                <td class="sep">—</td>
+                                <td>2.000</td>
+                                <td>460,00</td>
+                                <td class="sep">920.000</td>
+                                <td>7.000</td>
+                                <td>862,86</td>
+                                <td>6.040.020</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td class="left"></td>
+                                <td></td>
+                                <td></td>
+                                <td class="sep"></td>
+                                <td></td>
+                                <td></td>
+                                <td class="sep"></td>
+                                <td>10.000</td>
+                                <td>404,00</td>
+                                <td>4.040.000</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+    </div>
 
-<div class="links">
+    </section>
+    <!-- ============================================================ -->
 
-<a href="#"><i class="fa-solid fa-home"></i> Inicio</a>
-<a href="#"><i class="fa-solid fa-user"></i> Usuarios</a>
-<a href="#"><i class="fa-solid fa-user-tie"></i> Trabalhadores</a>
-<a href="#"><i class="fa-solid fa-users"></i> Contactos</a>
+    <footer>&copy; Luanda aos <span id="ano"></span></footer>
 
-</div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        (
+            function () {
+                document.addEventListener("DOMContentLoaded", () => {
 
-<div class="clock" id="clock">
-00:00:00
-</div>
+                    /*====================== Header Scroller =================================*/
+                    const header = document.querySelector(".header");
 
-</div>
+                    document.addEventListener("scroll", function () {
 
-</header>
+                        if (!header) return;
 
-<main>
+                        if (window.scrollY > 50) {
+                            header.classList.add("baixou-h");
+                        } else {
+                            header.classList.remove("baixou-h");
+                        }
 
-<h2>Painel Recursos Humanos</h2>
-<p>Bem-vindo ao sistema de gestão de funcionários.</p>
+                    });
 
-</main>
+                    /*============= Menu ======================*/
+                    const menu = document.querySelector(".menu-lateral")
+                    const menuBnt = document.querySelector(".menu");
+                    menuBnt.addEventListener("click", function (e) {
+                        e.stopPropagation();
+                        menu.classList.toggle("lateralMenu");
+                    });
 
-<footer>
+                    document.addEventListener("click", function (e) {
+                        const foraMenu = menu.contains(e.target) || menuBnt.contains(e.target);
+                        if (!foraMenu) {
+                            menu.classList.remove("lateralMenu");
+                        }
+                    })
 
-© Luanda <span id="year"></span>
+                    /* =========================
+                       🔎 Download
+                    ========================= */
 
-</footer>
+                    function BaixarFile() {
+                        const link = document.createElement("a");
 
-<script>
+                        link.href = "Grafico Financeiro.PNG";
+                        link.download = "Grafico Financeiro.PNG";
+                        link.click();
+                    }
+                    document.querySelector(".Baixar_file").addEventListener("click", BaixarFile);
 
-/* MENU */
+                    /* =========================
+   🔎 SEARCH NA TABELA COM HIGHLIGHT (CORRIGIDO)
+========================= */
 
-const menuBtn = document.getElementById("menuBtn");
-const menuDropdown = document.getElementById("menuDropdown");
+                    const input = document.getElementById("searchInput");
 
-/* abrir / fechar menu */
+                    if (input) {
+                        const rows = document.querySelectorAll(".fin-table tbody tr");
 
-menuBtn.addEventListener("click",(e)=>{
-e.stopPropagation();
-menuDropdown.classList.toggle("active");
-});
+                        // função para remover acentos (🔥 melhora MUITO a busca)
+                        const normalizar = (texto) => {
+                            return texto
+                                .toLowerCase()
+                                .normalize("NFD")
+                                .replace(/[\u0300-\u036f]/g, "");
+                        };
 
-/* fechar ao clicar fora */
+                        input.addEventListener("input", function () {
 
-document.addEventListener("click",(e)=>{
+                            const query = normalizar(this.value.trim());
 
-if(!menuDropdown.contains(e.target) && !menuBtn.contains(e.target)){
-menuDropdown.classList.remove("active");
-}
+                            rows.forEach(row => {
 
-});
+                                // ignora linhas especiais
+                                if (
+                                    row.classList.contains("subtitulo-row") ||
+                                    row.classList.contains("total-row") ||
+                                    row.classList.contains("total-geral-row")
+                                ) {
+                                    row.style.display = "";
+                                    row.style.background = "";
+                                    row.style.color = "";
+                                    return;
+                                }
 
-/* fechar ao clicar nos links */
+                                const texto = normalizar(row.textContent);
 
-const linksMenu = menuDropdown.querySelectorAll("a");
+                                // RESET TOTAL (importante)
+                                row.style.background = "";
+                                row.style.color = "";
 
-linksMenu.forEach(link => {
+                                if (query === "") {
+                                    row.style.display = "";
+                                }
+                                else if (texto.includes(query)) {
+                                    row.style.display = "";
+                                    row.style.background = "#f90";
+                                    row.style.color = "#fff";
+                                }
+                                else {
+                                    row.style.display = "none";
+                                }
 
-link.addEventListener("click",()=>{
-menuDropdown.classList.remove("active");
-});
+                            });
+                        });
+                    }
 
-});
+                    /* =========================
+                       🖱️ CURSOR PERSONALIZADO
+                    ========================= */
+                    const cursor = document.getElementById('cursor');
+                    const trail = document.getElementById('cur');
 
-/* SEARCH */
+                    let mx = 0, my = 0, tx = 0, ty = 0;
 
-const search = document.getElementById("search");
+                    if (cursor && trail) {
 
-search.addEventListener("click",()=>{
-search.classList.toggle("active");
-});
+                        document.addEventListener('mousemove', e => {
+                            mx = e.clientX;
+                            my = e.clientY;
 
-/* RELÓGIO */
+                            cursor.style.left = (mx - 6) + 'px';
+                            cursor.style.top = (my - 6) + 'px';
+                        });
 
-function updateClock(){
+                        function animateTrail() {
+                            tx += (mx - tx - 8) * 0.12;
+                            ty += (my - ty - 5) * 0.12;
 
-let now = new Date();
+                            trail.style.left = tx + 'px';
+                            trail.style.top = ty + 'px';
 
-let h = now.getHours().toString().padStart(2,"0");
-let m = now.getMinutes().toString().padStart(2,"0");
-let s = now.getSeconds().toString().padStart(2,"0");
+                            requestAnimationFrame(animateTrail);
+                        }
 
-document.getElementById("clock").textContent = `${h}:${m}:${s}`;
+                        animateTrail();
+                    }
 
-}
 
-setInterval(updateClock,1000);
-updateClock();
+                    /* =========================
+                       ⏰ RELÓGIO DINÂMICO
+                    ========================= */
+                    const timeEl = document.querySelector(".relogio");
 
-/* ANO */
+                    if (timeEl) {
+                        function updateClock() {
+                            const now = new Date();
 
-document.getElementById("year").textContent =
-new Date().getFullYear();
+                            const h = String(now.getHours()).padStart(2, '0');
+                            const m = String(now.getMinutes()).padStart(2, '0');
+                            const s = String(now.getSeconds()).padStart(2, '0');
 
-</script>
+                            timeEl.textContent = `${h}:${m}:${s}`;
+                        }
 
+                        setInterval(updateClock, 1000);
+                        updateClock();
+                    }
+                    (
+                        function () {
+                            /* =========================
+     ⏰ RELÓGIO CLICK SHOW/HIDE
+  ========================= */
+
+                            const containerRelogio = document.querySelector(".conjunto-relogio");
+                            const btnRelogio = document.querySelector(".relogio-btn");
+
+                            if (containerRelogio && btnRelogio) {
+
+                                // abrir ao clicar no ícone
+                                btnRelogio.addEventListener("click", function (e) {
+                                    e.stopPropagation();
+                                    containerRelogio.classList.add("ativo");
+                                });
+
+                                // fechar ao clicar fora
+                                document.addEventListener("click", function (e) {
+                                    if (!containerRelogio.contains(e.target)) {
+                                        containerRelogio.classList.remove("ativo");
+                                    }
+                                });
+
+                            }
+
+                        }
+                    )()
+
+                    /* =========================
+                       📊 GRÁFICO (Chart.js)
+                    ========================= */
+                    const ct = document.getElementById('myChart');
+
+                    if (ct && typeof Chart !== "undefined") {
+
+                        new Chart(ct, {
+                            type: 'line',
+                            data: {
+                                labels: [
+                                    'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun',
+                                    'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'
+                                ],
+                                datasets: [
+                                    {
+                                        label: 'Receitas 2025',
+                                        data: [12000, 15000, 18000, 14000, 20000, 22000, 25000, 24000, 26000, 28000, 30000, 32000],
+                                        borderColor: '#1E90FF',
+                                        backgroundColor: 'rgba(30,144,255,0.2)',
+                                        tension: 0.4,
+                                        fill: true,
+                                        pointRadius: 4
+                                    },
+                                    {
+                                        label: 'Despesas 2025',
+                                        data: [8000, 9000, 10000, 9500, 11000, 12000, 13000, 12500, 14000, 15000, 16000, 17000],
+                                        borderColor: '#FF4500',
+                                        backgroundColor: 'rgba(255,69,0,0.2)',
+                                        tension: 0.4,
+                                        fill: true,
+                                        pointRadius: 4
+                                    }
+                                ]
+                            },
+                            options: {
+                                responsive: true,
+                                interaction: {
+                                    mode: 'index',
+                                    intersect: false
+                                },
+                                plugins: {
+                                    legend: {
+                                        labels: {
+                                            color: "#fff"
+                                        }
+                                    }
+                                },
+                                scales: {
+                                    x: {
+                                        ticks: { color: "#fff" },
+                                        grid: { color: "rgba(255,255,255,0.1)" }
+                                    },
+                                    y: {
+                                        ticks: { color: "#fff" },
+                                        grid: { color: "rgba(255,255,255,0.1)" }
+                                    }
+                                }
+                            }
+                        });
+                    }
+                    /*=============== Particulas =============================*/
+
+
+                    const canvas = document.getElementById("particles");
+                    const ctx = canvas.getContext("2d");
+
+                    canvas.width = window.innerWidth;
+                    canvas.height = window.innerHeight;
+
+                    window.addEventListener("resize", () => {
+                        canvas.width = window.innerWidth;
+                        canvas.height = window.innerHeight;
+                    });
+
+                    const colors = [
+                        "#0a2540",
+                        "#1b263b",
+                        "#14213d",
+                        "#2c2c54",
+                        "#1a1a2e",
+                        "#16213e"
+                    ];
+
+                    let mouse = { x: null, y: null };
+
+                    window.addEventListener("mousemove", (e) => {
+                        mouse.x = e.x;
+                        mouse.y = e.y;
+                    });
+
+                    class Particle {
+                        constructor() {
+                            this.x = Math.random() * canvas.width;
+                            this.y = Math.random() * canvas.height;
+                            this.size = Math.random() * 2 + 0.8;
+                            this.speedX = (Math.random() - 0.5) * 0.5;
+                            this.speedY = (Math.random() - 0.5) * 0.5;
+                            this.color = colors[Math.floor(Math.random() * colors.length)];
+                        }
+
+                        update() {
+                            this.x += this.speedX;
+                            this.y += this.speedY;
+
+                            // bounce
+                            if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
+                            if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
+
+                            // interação leve com mouse
+                            if (mouse.x && mouse.y) {
+                                let dx = this.x - mouse.x;
+                                let dy = this.y - mouse.y;
+                                let dist = Math.sqrt(dx * dx + dy * dy);
+
+                                if (dist < 120) {
+                                    this.x += dx * 0.01;
+                                    this.y += dy * 0.01;
+                                }
+                            }
+                        }
+
+                        draw() {
+                            ctx.fillStyle = this.color;
+                            ctx.globalAlpha = 0.8;
+                            ctx.beginPath();
+                            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                            ctx.fill();
+                        }
+                    }
+
+                    let particles = [];
+
+                    function init() {
+                        particles = [];
+                        for (let i = 0; i < 90; i++) {
+                            particles.push(new Particle());
+                        }
+                    }
+
+                    function connect() {
+                        for (let a = 0; a < particles.length; a++) {
+                            for (let b = a; b < particles.length; b++) {
+
+                                let dx = particles[a].x - particles[b].x;
+                                let dy = particles[a].y - particles[b].y;
+                                let distance = Math.sqrt(dx * dx + dy * dy);
+
+                                if (distance < 120) {
+                                    ctx.strokeStyle = "rgba(100, 200, 255, 0.15)";
+                                    ctx.lineWidth = 1;
+                                    ctx.beginPath();
+                                    ctx.moveTo(particles[a].x, particles[a].y);
+                                    ctx.lineTo(particles[b].x, particles[b].y);
+                                    ctx.stroke();
+                                }
+                            }
+                        }
+                    }
+
+                    function animate() {
+                        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                        connect();
+
+                        particles.forEach(p => {
+                            p.update();
+                            p.draw();
+                        });
+
+                        requestAnimationFrame(animate);
+                    }
+
+                    init();
+                    animate();
+
+                    /*============= Ano Automatico ==================*/
+                    const ano = document.querySelector("#ano").innerHTML = new Date().getFullYear()
+
+                });
+            }
+        )()
+
+
+
+    </script>
 </body>
+
 </html>
